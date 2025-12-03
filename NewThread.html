@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        background-image:
+             url('https://raw.githubusercontent.com/sanxiaojijiaben404/picture/main/background_Homepage.png'),
+             url('https://raw.githubusercontent.com/sanxiaojijiaben404/picture/main/decoration_Transition.png');
+
+        background-size: 100% auto,
+                         100% auto;
+        background-repeat: no-repeat;
+        background-attachment: scroll;
+        background-position:
+             top center,
+             center center;
+        background-position: 
+             top 0px center,
+             top 1200px center;
+        min-height: 300vh;
+        background-color: #ebe9e2;
+        /* 重置字符间距 */
+        letter-spacing: normal !important;
+        word-spacing: normal !important;
+        font-family: "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", sans-serif;
+        font-size: 150%;
+    }
+    /* 固定导航栏样式 */
+    .navbar {
+            position: fixed; /* 固定定位 */
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #2c3e50; /* 深蓝色背景 */
+            z-index: 1000; /* 确保导航栏在最上层 */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 阴影增强层次感 */
+    }
+    /* 导航容器（控制内容宽度） */
+    .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+        height: 70px;
+        gap: 100px;
+
+    }
+    /* 品牌logo */
+    .navbar-logo {
+        margin: auto;
+        color: #fff;
+        text-decoration: none;
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    
+     /* 导航菜单 */
+    .nav-menu {
+        display: flex;
+        list-style: none;
+    }
+
+    /* 菜单项 */
+    .nav-item {
+        position: relative;
+    }
+
+    /* 导航链接 */
+    .nav-link {
+        color: #ecf0f1; /* 浅灰色文字 */
+        text-decoration: none;
+        padding: 0 15px;
+        display: flex;
+        align-items: center;
+        transition: all 0.3s ease; /* 过渡动画 */
+    }
+    /* 悬停/激活状态 */
+    .nav-link:hover, .nav-link.active {
+        color: #3498db; /* 蓝色高亮 */
+        background-color: rgba(255, 255, 255, 0.1); /* 透明背景 */
+    }
+    /* 下拉菜单容器 */
+    .dropdown {
+        position: relative; /* 作为下拉菜单的定位父级 */
+    }
+
+    /* 下拉图标样式 */
+    .dropdown-icon {
+        font-size: 0.8rem;
+        margin-left: 6px;
+        transition: transform 0.3s ease;
+    }
+
+    /* 下拉菜单展开时旋转图标 */
+    .dropdown.active .dropdown-icon {
+        transform: rotate(180deg);
+    }
+
+    /* 二级下拉菜单样式（适配图片） */
+    .dropdown-menu.image-dropdown {
+        position: absolute;
+        top: 100%; /* 紧贴父菜单下方 */
+        left: 0;
+        min-width: 280px; /* 图片容器宽度，可调整 */
+        background-color: #34495e; /* 与导航栏深色系一致 */
+        list-style: none;
+        padding: 10px; /* 图片内边距 */
+        margin: 0;
+        border-radius: 0 0 8px 8px; /* 只给下方加圆角 */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        display: none; /* 默认隐藏 */
+        z-index: 1001; /* 确保在导航栏上方 */
+    }
+
+    /* 下拉菜单展开状态 */
+    .dropdown.active .dropdown-menu.image-dropdown {
+        display: block;
+    }
+
+    /* 下拉菜单中的图片样式 */
+    .dropdown-image {
+        width: 100%; /* 图片自适应容器宽度 */
+        height: auto; /* 保持图片比例 */
+        border-radius: 4px; /* 图片轻微圆角，更美观 */
+        object-fit: cover; /* 防止图片变形 */
+        cursor: pointer; /* 鼠标悬浮显示指针，可选 */
+        transition: transform 0.3s ease; /* hover缩放动画 */
+    }
+
+    /* 图片hover效果（可选） */
+    .dropdown-image:hover {
+        transform: scale(1.02); /* 轻微放大，提升交互感 */
+    }
+
+    /* 头部logo样式 */
+    .header-logo-container {
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        height: 300px;
+    }
+    .header-logo {
+        width: 550px;
+        height: auto;
+        display: block;
+        /* 改为 block，不是 flex */
+        margin: 200px auto 0 auto;
+        transition: all 0.3s;
+    }
+
+    .header-logo:hover {
+        transform: scale(1.3);
+    }
+
+    .section-one {
+        border-radius: 10px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        border-left: 4px solid #34404c;
+        will-change: transform;
+        transition: all 0.3s ease;
+        line-height: 1.6;
+        width: 100%;
+        max-width: 1200px;
+
+        /* 确保字符间距正常 */
+        letter-spacing: normal !important;
+        word-spacing: normal !important;
+
+        /* Flex 布局 */
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 40px;
+
+        /* 文本样式 */
+        color: #333;
+        white-space: normal;
+        overflow-wrap: break-word;
+        word-break: break-word;
+    }
+
+    /* 创建文字容器 */
+    .section-content {
+        flex: 1;
+        /* 占据剩余空间 */
+        min-width: 0;
+        /* 防止内容溢出 */
+        /* 确保文本间距正常 */
+        letter-spacing: normal;
+        word-spacing: normal;
+    }
+
+    /* 图片容器样式 */
+    .section-img-container {
+        flex-shrink: 0;
+        /* 防止图片被压缩 */
+        align-self: flex-start;
+        /* 顶部对齐 */
+        width: 40%;
+        /* 添加宽度控制，让图片更大 */
+    }
+
+    /* 图片样式调整 - 修复这里！ */
+    .section-img {
+        width:90%;
+        /* 改为 width: 100% 而不是 max-width: 10% */
+        height: auto;
+        display: block;   
+        transform: rotate(0deg);
+        transition: transform 0.7s ease;
+    }
+    .section-img:hover {
+        transform:rotate(-15deg);
+    }
+    .section-one:hover {
+        transform:scale(1.05);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .section-one h1 {
+        text-align: left;
+        /* 文字在左，所以标题也左对齐 */
+        color: #34404c;
+        margin-bottom: 15px;
+        font:300;
+        ;
+        letter-spacing: normal;
+    }
+
+    .section-one h2 {
+        text-align: left;
+        /* 文字在左，所以副标题也左对齐 */
+        margin-bottom: 15px;
+        font-size: 160%;
+        color: #555;
+        letter-spacing: normal;
+    }
+
+    /* 段落样式 */
+    .section-one p {
+        margin-bottom: 15px;
+        text-align: justify;
+        /* 两端对齐更好看 */
+        letter-spacing: normal;
+        word-spacing: normal;
+    }
+    .section-two{
+        border-radius: 10px;
+        margin: auto;
+        padding: 15px; 
+        background-color: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        border: 12px solid #a3a0a0;
+        line-height: 1.6;
+        width: 110%;
+        max-width: 1300px;
+        white-space: normal;
+        overflow-wrap: break-word;
+        word-break: break-word;
+        hyphens: auto;
+        color: #333;
+        text-align: center;
+        justify-content: center; /* 垂直居中 */
+        align-items: center;
+        /* Flex 布局 */
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content:space-between;
+        gap: 40px
+    }
+     .section-two h1 {
+        text-align: center;
+        color: #34404c;
+        margin-bottom: 10px;
+    }
+    .section-two h2 {
+        text-align: center;
+        color: #34404c;
+        margin-bottom: 10px;
+    }
+    .card {
+        border-radius: 10px;
+        border: 7px solid #ae1eca;
+        background-color: #fff;
+        transition: transform 0.3s ease;
+        will-change: transform;
+        max-width: 200px;
+        text-align: center;
+        padding: 20px;
+    }
+    .card:hover {
+        transform: scale(1.05);
+    }
+    .about-us-container {
+        align-items: center;
+        gap: 20px;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+    .side-button {
+        flex: 1;
+        padding: 8px 0;
+        border: none;
+        border-radius: 4px;
+        background-color: rgb(20, 161, 95);
+        color: #fff;
+        cursor: pointer;
+        margin-bottom: 80px;
+        max-width: 160px;
+        font-size: 18px;
+        width: 160px;
+        height: 60px;
+        transition: all 0.3s;
+        box-shadow:#555 3px 3px 8px;
+        border-radius: 10px;
+    }
+    .side-button:hover {
+        transform: scale(1.1);
+    }
+    
+    .question-item {
+        width: 700px;
+        margin: 10px auto;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        border-radius: 6px;
+        overflow: hidden;
+    }
+     .question-express {
+        padding: 14px 20px;
+        background-color: white;
+        font-size: 16px;
+        color: #2d3748;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        }
+    .question-answer {
+        padding: 0 20px;
+        background-color: #fafafa;
+        color: #718096;
+        line-height: 1.8;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease, padding 0.4s ease;
+        }
+    .question-item.active .question-answer {
+        padding: 20px;
+        max-height: 300px;
+    }
+    .question-icon {
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #4299e1;
+        font-size: 12px;
+        transition: transform 0.3s;
+    }
+    .question-item.active .fquestion-icon {
+        transform: rotate(45deg);
+    }
+    .faq-item {
+        margin: 20px auto;
+        max-width: 800px;
+    }
+    /* 响应式设计：小屏幕改为上下排列 */
+    @media (max-width: 768px) {
+        .section-one {
+            flex-direction: column;
+            gap: 20px;
+            padding: 15px;
+        }
+
+        .section-img-container {
+            width: 100%;
+            order: 2;
+            /* 图片在下 */
+        }
+
+        .section-content {
+            order: 1;
+            /* 文字在上 */
+        }
+
+        .section-one h1,
+        .section-one h2 {
+            text-align: center;
+            /* 小屏幕时居中 */
+        }
+    }
+</style>
+
+<body>
+    <!-- 固定导航栏 -->
+   <!-- 固定导航栏（优化后） -->
+<nav class="navbar">
+    <div class="nav-container">   
+        <!-- 左侧菜单（包含图片下拉菜单） -->
+        <ul class="nav-menu-left" id="navMenuLeft">
+            <li class="nav-item dropdown">
+                <!-- 下拉菜单触发按钮 -->
+                <a href="#introduction" class="nav-link active dropdown-toggle">
+                    Introduction
+                    <span class="dropdown-icon">▼</span> <!-- 下拉图标 -->
+                </a>
+                <!-- 二级下拉菜单（仅含图片） -->
+                <ul class="dropdown-menu image-dropdown">
+                    <li class="dropdown-item">
+                        <!-- 下拉菜单中的图片 -->
+                        <img src="https://raw.githubusercontent.com/sanxiaojijiaben404/picture/main/qrcode_1699620268564.jpg" 
+                             alt="Introduction图片" 
+                             class="dropdown-image">
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="#about" class="nav-link">About</a>
+            </li>
+        </ul>
+
+        <!-- 中间品牌logo -->
+        <a href="#" class="navbar-logo">NewThread</a>
+
+        <!-- 右侧菜单（保持不变） -->
+        <ul class="nav-menu-right" id="navMenuRight">
+            <li class="nav-item">
+                <a href="#contact-us" class="nav-link">Contact Us</a>
+            </li>
+            <li class="nav-item">
+                <a href="#questions" class="nav-link">Questions</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+    <!-- 头部logo -->
+    <div class="header-logo-container">
+        <img class="header-logo"
+            src="https://raw.githubusercontent.com/sanxiaojijiaben404/picture/main/decoration_Geek.png" alt="Logo">
+    </div>
+    <h1 style="margin: 1100px auto 0 auto;text-align: center;color: rgb(28, 28, 163);">Introduction˅</h1>
+    <!--introduction-->
+    <section id="introduction" class="section">
+    <!--开发猿-->
+    <div class="section-one">
+        <div class="section-content" style=" margin: 30px auto 0 auto; ">
+            <h1>开发程序猿</h1>
+            <h2 style="color: rgb(130, 200, 233);">“Stay Hungry，Stay Foolish”</h2>
+            <p>前端：前端开发是创建Web或app视觉界面呈现给用户的过程通过HTML，CSS及JavaScript以及衍生出来的各种技术、框架、解决方案，实现互联网产品的用户界面交互。</p>
+            <p>后端：通常也称服务器端开发。不对用户显示,负责处理前端的请求，进行逻辑处理和数据交互。 客户端: 移动应用开发是为了小型、无线计算设备编写软件的流程和程序的集合，例如智能手机或平板电脑。</p>
+        </div>
+        <div class="section-img-container">
+            <img class="section-img"
+                src="https://raw.githubusercontent.com/sanxiaojijiaben404/picture/main/Geek_Programmer.png"
+                alt="开发程序图片">
+        </div>
+    </div>
+    <!--产品经理-->
+    <div class="section-one">
+        <div class="section-img-container">
+            <img class="section-img"
+                src="https://raw.githubusercontent.com/sanxiaojijiaben404/picture/main/Geek_PM.png"
+                alt="产品经理图片">
+        </div>
+        <div class="section-content" style=" margin: 30px auto 0 auto; ">
+            <h1>产品经理</h1>
+            <h2 style="color: rgb(203, 138, 233);">"好的软件的特征是,明明没用过，但总觉得用过似的。"</h2>
+            <p>PM是针对某一项或是某一类的产品进行规划和管理的人员。 PM需要拥有缜密的产品逻辑思维，研究用户心理，负责产品的整个生命周期。
+                PM参与产品的UI和交互设计，为设计和开发确定产品原型，能够将产品变得有个性,操作变得舒适简单、自由。 PM需要一定的文档能力和沟通能力，能够在团队合作的过程中跟各个角色进行有效沟通。</p>
+        </div>
+    </div>
+    <!--游戏开发 -->
+    <div class="section-one">
+        <div class="section-content" style=" margin: 30px auto 0 auto; ">
+            <h1>游戏开发</h1>
+            <h2 style="color: rgb(140, 225, 211);">"TECH OTAKUS SAVE THE WORLD"</h2>
+            <p>P对游戏开发的热爱和追求，使我们相聚于此。 涉及计算机图形学的学习，我们使用物理模拟引擎Unity开发我们所追求的世界，一个故事，一个角色，在我们的世界里改变现实，创造新的可能，我们参与，我们改变，我们创造...</p>
+        </div>
+        <div class="section-img-container">
+            <img class="section-img"
+                src="https://raw.githubusercontent.com/sanxiaojijiaben404/picture/main/Geek_Game.png"
+                alt="游戏开发图片">
+        </div>
+    </div>
+    <!--安全-->
+    <div class="section-one">
+        <div class="section-img-container">
+            <img class="section-img"
+                src="https://raw.githubusercontent.com/sanxiaojijiaben404/picture/main/Geek_security.png"
+                alt="安全图片">
+        </div>
+        <div class="section-content" style=" margin: 30px auto 0 auto; ">
+            <h1>安全</h1>
+            <h2 style="color: rgb(227, 151, 203);">"路漫漫其修远兮，非大毅力者不能"</h2>
+            <p>我们主要学习Web安全和二进制安全。在Web安全中我们将学习和实践Web漏洞挖掘技术，也将探索和讨论Web安全实践的方法。在二进制安全中我们专注于分析和防御与计算机程序、系统相关的威胁，同时实践漏洞分析和修补。耐心和钻研缺一不可。</p>
+        </div>
+    </div>
+    </section>
+    <!--关于我们--> 
+    <section id="about" class="section">
+    <se class="section-two" style="background-color: #f1e1e7;">
+        <h1 style=" color: rgb(150, 150, 150);margin: 0 auto;">About Us</h1> 
+        <div class="about-us-container">  
+            <div class="card">
+                <img style="width: 80%;height: auto;display: block;align-self: flex-start;"
+                src="https://raw.githubusercontent.com/sanxiaojijiaben404/picture/main/about_Speech.png">
+                <p>每周我们会举行一次技术例会，用来汇报我们的学习内容，供成员之间交流学习。</p>
+            </div>
+            <div class="card">
+                <img style="width: 80%;height: auto;display: block;align-self: flex-start;"
+                src="https://raw.githubusercontent.com/sanxiaojijiaben404/picture/main/about_Diversity.png">
+                <p>多元化是我们的特色。在这里，你可以拥有多种方向选择，前后端、安全、AI、产品/设计、游戏等。</p>
+            </div>
+            <div class="card">
+                <img style="width: 80%;height: auto;display: block;align-self: flex-start;"
+                src="https://raw.githubusercontent.com/sanxiaojijiaben404/picture/main/about_Time.png">
+                <p>耐心、毅力是我们必备的品质，每周我们会至少花30小时在实验室中。以保证技术的精进。</p>
+            </div>
+        </div>
+        <div class="section-img" style="margin-top: -40px;
+        width: 2500px;
+        height: auto;">
+        <img src="https://raw.githubusercontent.com/sanxiaojijiaben404/picture/main/decoration_Butterfly.png">
+        </div>
+    </div>
+    </section>
+    
+    <!--联系我们-->
+    <section id="contact-us" class="section">
+    <div class="section-two"                              
+    style=" margin: 30px auto 100px auto;border-color: #028576;margin:auto;">
+        <h1 style=" color: rgb(150, 150, 150);">Contact Us</h1>
+        <p>•热爱计算机，具有geek精神，喜欢DIY，动手能力较强</p>
+        <p>•有编程/算法/硬件基础为佳(有作品可附上)</p>
+        <p>•有足够的空余时间，热爱思考，对事物有自己的见解</p>
+        <p><small>ps:非新思路统招只有通过发送邮件自我介绍后，收到邮件回执后才会被允许进群,在读学生, 都可邮件到newthread_geek@outlook.com报名加入.(信中需备注个人基本信息以及意向方向,此招新活动为长期招新)</small></p>
+        <div class="about-us-container">
+            <a href="https://im.qq.com/index/" target="_blank" >
+                <button class="side-button">QQ-Group</button>
+            </a>
+            <button class="side-button"onclick="copyEmail()">E-mail</button>
+            <a href="https://www.bilibili.com/video/BV1bW411n7fY/?spm_id_from=333.337.search-card.all.click&vd_source=2e665bb499620ff7c35d9d551c1ca19e" target="_blank">
+                <button class="side-button">Github</button>
+            </a>
+            <script>
+            function copyEmail() {
+                 const email = "newthread_geek@outlook.com"; 
+                 navigator.clipboard.writeText(email)
+                    .then(() => alert('邮箱已复制到剪贴板！'))
+                    .catch(err => alert('复制失败：' + err));
+            }
+            </script>
+        </div>
+    </div>
+    </section>
+    <!--常见问题解答-->
+    <section id="questions" class="section">
+    <div class="section-two"style="background-image: url('https://raw.githubusercontent.com/sanxiaojijiaben404/picture/main/background_QA.png');"
+        background-size: 100% auto； background-repeat: no-repeat;background-attachment: scroll;>
+        <h1 style="margin: 0 auto">More Questiobs</h1>
+        <div class="faq-item">
+            <div class="question-item faq-item">
+                <div class="question-express faq-question">
+                    <span class="question-icon faq-icon">+</span>
+                    1.什么是Geek(极客)？Geek精神又是什么？
+                </div>
+                <div class="question-answer faq-answer">
+                    拥有好奇之心，改变之力，爱钻研，能折腾
+                </div>
+            </div>
+            <div class="question-item faq-item">
+                <div class="question-express faq-question">
+                    <span class="question-icon faq-icon">+</span>
+                    2.招新是安排在什么时间？
+                </div>
+                <div class="question-answer faq-answer">
+                    按照惯例，正式招新时间是在9月下旬~10月上旬，不过今年会有一些改动，笔试地 点一般在9号教学楼。 如果想要了解我们，可以加入我们的QQ群，招新具体的安排/变动会在招新群通知。
+                </div>
+            </div>
+            <div class="question-item faq-item">
+                <div class="question-express faq-question">
+                    <span class="question-icon faq-icon">+</span>
+                    3.我们有考核吗？考核流程是怎样的呀？
+                </div>
+                <div class="question-answer faq-answer">
+                    嗯...我们一共有一轮笔试和两轮面试。权衡技术、经验和学习能力，第一轮是一些视野性的题目，淘汰率并不高。第二轮单独面试， 根据你的笔试提出技术相关的问题、兴趣爱好、个人看法。最后一轮群面，首先问及时间分 配上的问题，其次也会向你提出各种奇怪的问题。这一轮中许多题目其实并不难，也无标准答案，重在考察同学们在压力下的逻辑思维。全部通过成为预备成员啦。
+                </div>
+            </div>
+            <div class="question-item faq-item">
+                <div class="question-express faq-question">
+                    <span class="question-icon faq-icon">+</span>
+                    4.考核是怎样的形式？
+                </div>
+                <div class="question-answer faq-answer">
+                    在考核期间每人会拥有一位'长者'带你入门，学习技术与知识，交流经验与想法。完成每周的新人任务后再进行一次考核筛选 后就可以成为Geek组正式成员啦！在考核期必须满足每周30个小时在实验室哦,所以考核期也不可以懈怠哦！
+                </div>
+            </div>
+            <div class="question-item faq-item">
+                <div class="question-express faq-question">
+                    <span class="question-icon faq-icon">+</span>
+                    5.进入Geek组之后都有什么福利呢？
+                </div>
+                <div class="question-answer faq-answer">
+                    一对一的新人指引，每一个成员都有会一个mentor, 带你初入门槛，与你一同成长，组内管理较宽松,在尊重其他人的前提下可以尽情发挥自己的个性。 打破平淡，与同样疯狂的人把疯狂的idea实现，磨砺耐性、培养思维、成就梦想。Lab设备/网络资源充足，闲暇之余也有组织活动。更有许多的故事等你来听~
+                </div>
+            </div>
+            <div class="question-item faq-item">
+                <div class="question-express faq-question">
+                    <span class="question-icon faq-icon">+</span>
+                    6.进入团队会影响我的日常学习吗？
+                </div>
+                <div class="question-answer faq-answer">
+                    你要知道大学是一个可以自由安排自己学习生活的地方。如果你想在上课之余充实自己、激励自己，最好的方法就是和比自己更优秀的人在一起。团队不缺优秀的 人，而我们也期待同样优秀的你，让我们一起前进！小组里也有不少保研, 考研的前辈们, 大部分都能找到一个平衡点, 而且团队的经历对你日后读研, 工作都大有裨益。
+                </div>
+            </div>
+            <div class="question-item faq-item">
+                <div class="question-express faq-question">
+                    <span class="question-icon faq-icon">+</span>
+                    7.老师以及学长学姐们的期望是什么?
+                </div>
+                <div class="question-answer faq-answer">
+                    我们希望你有很强的自学能力，同时关注新事物、新技术，喜欢挑战，逻辑性强，善于和各种文化的人合作.“每个人都可以做自己想做的事情，每个人的方向不一样。 如果你想做产品或有不错的 idea，那么就可以找志同道合的人一起合作。”
+                </div>
+            </div>      
+    </div>
+    </section>
+    <script>
+        // 批量绑定点击事件
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                // 关闭其他已展开的项（可选）
+                document.querySelectorAll('.faq-item.active').forEach(item => {
+                    if (item !== faqItem) item.classList.remove('active');
+                });
+                // 切换当前项状态
+                faqItem.classList.toggle('active');
+            });
+        });
+    </script>
+
+    <script>
+    // 下拉菜单切换逻辑
+    const dropdownToggle = document.querySelector('.dropdown-toggle');
+    const dropdown = document.querySelector('.dropdown');
+
+    // 点击触发下拉菜单
+    dropdownToggle.addEventListener('click', (e) => {
+        e.preventDefault(); // 阻止默认锚点跳转（仅作为菜单触发按钮）
+        dropdown.classList.toggle('active');
+    });
+
+    // 点击图片后关闭菜单（可选，根据需求决定是否保留）
+    const dropdownImage = document.querySelector('.dropdown-image');
+    if (dropdownImage) {
+        dropdownImage.addEventListener('click', () => {
+            dropdown.classList.remove('active');
+            // 若需要点击图片跳转，可添加跳转逻辑：
+            // window.location.href = '#introduction';
+        });
+    }
+
+    // 点击页面其他区域关闭下拉菜单
+    document.addEventListener('click', (e) => {
+        if (!dropdown.contains(e.target)) {
+            dropdown.classList.remove('active');
+        }
+    });
+
+    // 保持原有导航激活状态逻辑（不变）
+    window.addEventListener('scroll', () => {
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (pageYOffset >= sectionTop - 100) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href').substring(1) === current) {
+                link.classList.add('active');
+            }
+        });
+    });
+</script>
+</body>
+</html>
