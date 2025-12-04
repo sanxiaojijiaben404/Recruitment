@@ -136,7 +136,7 @@
 
     /* 图片hover效果（可选） */
     .dropdown-image:hover {
-        transform: scale(1.02); /* 轻微放大，提升交互感 */
+        transform: scale(1.02); 
     }
 
     /* 头部logo样式 */
@@ -150,7 +150,6 @@
         width: 550px;
         height: auto;
         display: block;
-        /* 改为 block，不是 flex */
         margin: 200px auto 0 auto;
         transition: all 0.3s;
     }
@@ -229,14 +228,12 @@
         /* 文字在左，所以标题也左对齐 */
         color: #34404c;
         margin-bottom: 15px;
-        font:300;
-        ;
+        font-weight: 300;
         letter-spacing: normal;
     }
 
     .section-one h2 {
         text-align: left;
-        /* 文字在左，所以副标题也左对齐 */
         margin-bottom: 15px;
         font-size: 160%;
         color: #555;
@@ -247,7 +244,6 @@
     .section-one p {
         margin-bottom: 15px;
         text-align: justify;
-        /* 两端对齐更好看 */
         letter-spacing: normal;
         word-spacing: normal;
     }
@@ -267,8 +263,7 @@
         hyphens: auto;
         color: #333;
         text-align: center;
-        justify-content: center; /* 垂直居中 */
-        align-items: center;
+        justify-content: center;
         /* Flex 布局 */
         display: flex;
         flex-direction: column;
@@ -404,21 +399,19 @@
 
 <body>
     <!-- 固定导航栏 -->
-   <!-- 固定导航栏（优化后） -->
 <nav class="navbar">
     <div class="nav-container">   
         <!-- 左侧菜单（包含图片下拉菜单） -->
         <ul class="nav-menu-left" id="navMenuLeft">
             <li class="nav-item dropdown">
                 <!-- 下拉菜单触发按钮 -->
-                <a href="#introduction" class="nav-link dropdown-toggle">
+                <a href="#introduction" class="nav-link active dropdown-toggle">
                     Introduction
                     <span class="dropdown-icon">▼</span> <!-- 下拉图标 -->
                 </a>
-                <!-- 二级下拉菜单（仅含图片） -->
+                <!-- 二级下拉菜单 -->
                 <ul class="dropdown-menu image-dropdown">
                     <li class="dropdown-item">
-                        <!-- 下拉菜单中的图片 -->
                         <img src="https://raw.githubusercontent.com/sanxiaojijiaben404/picture/main/qrcode_1699620268564.jpg" 
                              alt="Introduction图片" 
                              class="dropdown-image">
@@ -432,6 +425,7 @@
 
         <!-- 中间品牌logo -->
         <a href="https://www.new-thread.com/" class="navbar-logo">NewThread</a>
+        
 
         <!-- 右侧菜单（保持不变） -->
         <ul class="nav-menu-right" id="navMenuRight">
@@ -509,62 +503,116 @@
     </div>
     </section>
     <!--关于我们--> 
-    <section id="about" class="section">
-    <se class="section-two" style="background-color: #f1e1e7;">
-        <h1 style=" color: rgb(150, 150, 150);margin: 0 auto;">About Us</h1> 
-        <div class="about-us-container">  
+<section id="about" class="section">
+    <div class="section-two" style="background-color: #f1e1e7; position: relative; overflow: visible;">
+        <h1 style="color: rgb(150, 150, 150); margin: 0 auto; position: relative; z-index: 3;">About Us</h1> 
+        <div class="about-us-container" style="position: relative; z-index: 3;">  
             <div class="card">
-                <img style="width: 80%;height: auto;display: block;align-self: flex-start;"
+                <img style="width: 80%; height: auto; display: block; align-self: flex-start;"
                 src="https://raw.githubusercontent.com/sanxiaojijiaben404/picture/main/about_Speech.png">
                 <p>每周我们会举行一次技术例会，用来汇报我们的学习内容，供成员之间交流学习。</p>
             </div>
             <div class="card">
-                <img style="width: 80%;height: auto;display: block;align-self: flex-start;"
+                <img style="width: 80%; height: auto; display: block; align-self: flex-start;"
                 src="https://raw.githubusercontent.com/sanxiaojijiaben404/picture/main/about_Diversity.png">
                 <p>多元化是我们的特色。在这里，你可以拥有多种方向选择，前后端、安全、AI、产品/设计、游戏等。</p>
             </div>
             <div class="card">
-                <img style="width: 80%;height: auto;display: block;align-self: flex-start;"
+                <img style="width: 80%; height: auto; display: block; align-self: flex-start;"
                 src="https://raw.githubusercontent.com/sanxiaojijiaben404/picture/main/about_Time.png">
                 <p>耐心、毅力是我们必备的品质，每周我们会至少花30小时在实验室中。以保证技术的精进。</p>
             </div>
         </div>
-        <div class="section-img" style="margin-top: -40px;
-        width: 2500px;
-        height: auto;">
-        <img src="https://raw.githubusercontent.com/sanxiaojijiaben404/picture/main/decoration_Butterfly.png">
+        <div class="section-img" style="position: relative; z-index: 3; margin-top: -40px; width: 100%; left: 1100px;">
+              <!-- 蝴蝶装饰 -->
+            <img src="https://raw.githubusercontent.com/sanxiaojijiaben404/picture/main/decoration_Butterfly.png" 
+                 alt="蝴蝶装饰" 
+                 style="max-width: 250px; height: auto; display: block;">
         </div>
-    </div>
-    </section>
+        
+        
+        <!-- 装饰图片 -->
+        <div style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; z-index: 1;">
+            <!-- 右上角装饰 -->
+            <img src="https://raw.githubusercontent.com/sanxiaojijiaben404/picture/main/decoration_Decoration.png" 
+                 alt="装饰图片" 
+                 style="position: absolute; top: 0px; right: -100px; width: 350px; height: auto;">
+            
+            <!-- 左上角装饰 -->
+            <img src="https://raw.githubusercontent.com/sanxiaojijiaben404/picture/main/decoration_Decoration.png" 
+                 alt="装饰图片" 
+                 style="position: absolute; top: 0px; left: -80px; width: 280px; height: auto; transform: scaleX(-1);">
+            
+            <!-- 左下角装饰 -->
+            <img src="https://raw.githubusercontent.com/sanxiaojijiaben404/picture/main/decoration_Decoration.png" 
+                 alt="装饰图片" 
+                 style="position: absolute; bottom: 0px; left: -60px; width: 250px; height: auto; transform: rotate(180deg);">
+            
+            <!-- 右下角装饰 -->
+            <img src="https://raw.githubusercontent.com/sanxiaojijiaben404/picture/main/decoration_Decoration.png" 
+                 alt="装饰图片" 
+                 style="position: absolute; bottom: 0px; right: -70px; width: 300px; height: auto; transform: scaleY(-1);">
+            
+        </div>
+</section>
     
     <!--联系我们-->
-    <section id="contact-us" class="section">
-    <div class="section-two"                              
-    style=" margin: 30px auto 100px auto;border-color: #028576;margin:auto;">
-        <h1 style=" color: rgb(150, 150, 150);">Contact Us</h1>
-        <p>•热爱计算机，具有geek精神，喜欢DIY，动手能力较强</p>
-        <p>•有编程/算法/硬件基础为佳(有作品可附上)</p>
-        <p>•有足够的空余时间，热爱思考，对事物有自己的见解</p>
-        <p><small>ps:非新思路统招只有通过发送邮件自我介绍后，收到邮件回执后才会被允许进群,在读学生, 都可邮件到newthread_geek@outlook.com报名加入.(信中需备注个人基本信息以及意向方向,此招新活动为长期招新)</small></p>
-        <div class="about-us-container">
-            <a href="https://im.qq.com/index/" target="_blank" >
+<section id="contact-us" class="section">
+    <div class="section-two" style="margin: 30px auto 100px auto; border-color: #028576; position: relative; overflow: visible;">
+        <!-- 装饰图片容器 -->
+        <div style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none;">
+            <!-- 叶子 -->
+            <img src="https://raw.githubusercontent.com/sanxiaojijiaben404/picture/main/decoration_Leaves.png" 
+                 alt="叶子" 
+                 style="position: absolute; top: 50px; left: 360px; width: 100px; height: auto; transform: rotate(-15deg);">
+            
+            <!-- 树 -->
+            <img src="https://raw.githubusercontent.com/sanxiaojijiaben404/picture/main/decoration_Tree.png" 
+                 alt="树" 
+                 style="position: absolute; top: -50px; right: -80px; width: 250px; height: auto; transform: rotate(5deg);">
+            
+            <!-- 七星瓢虫 -->
+            <img src="https://raw.githubusercontent.com/sanxiaojijiaben404/picture/main/decoration_Ladybug.png" 
+                 alt="七星瓢虫" 
+                 style="position: absolute; bottom: -40px; left: -50px; width: 150px; height: auto; transform: rotate(-10deg);">
+            
+            <!-- 带东西的树 -->
+            <img src="https://raw.githubusercontent.com/sanxiaojijiaben404/picture/main/decoration_TreeWithSometing.png" 
+                 alt="带东西的树" 
+                 style="position: absolute; bottom: 400px; right: 1030px; width: 300px; height: auto;">
+            
+            <!-- 变色龙 -->
+            <img src="https://raw.githubusercontent.com/sanxiaojijiaben404/picture/main/decoration_Chameleon.png" 
+                 alt="变色龙" 
+                 style="position: absolute; bottom: 0px; right: 150px; width: 700px; height: auto;">
+        </div>
+        
+        <h1 style="color: rgb(150, 150, 150); position: relative; z-index: 1;margin: 30px auto 100px auto">Contact Us</h1>
+        <div style="text-align: center; max-width: 800px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1;">
+            <p>•热爱计算机，具有geek精神，喜欢DIY，动手能力较强</p>
+            <p>•有编程/算法/硬件基础为佳(有作品可附上)</p>
+            <p>•有足够的空余时间，热爱思考，对事物有自己的见解</p>
+            <p><small>ps:非新思路统招只有通过发送邮件自我介绍后，收到邮件回执后才会被允许进群,在读学生, 都可邮件到newthread_geek@outlook.com报名加入.(信中需备注个人基本信息以及意向方向,此招新活动为长期招新)</small></p>
+        </div>
+        <div class="about-us-container" style="position: relative; z-index: 1;">
+            <a href="https://im.qq.com/index/" target="_blank">
                 <button class="side-button">QQ-Group</button>
             </a>
-            <button class="side-button"onclick="copyEmail()">E-mail</button>
+            <button class="side-button" onclick="copyEmail()">E-mail</button>
             <a href="https://www.bilibili.com/video/BV1bW411n7fY/?spm_id_from=333.337.search-card.all.click&vd_source=2e665bb499620ff7c35d9d551c1ca19e" target="_blank">
                 <button class="side-button">Github</button>
             </a>
-            <script>
-            function copyEmail() {
-                 const email = "newthread_geek@outlook.com"; 
-                 navigator.clipboard.writeText(email)
-                    .then(() => alert('邮箱已复制到剪贴板！'))
-                    .catch(err => alert('复制失败：' + err));
-            }
-            </script>
         </div>
     </div>
-    </section>
+</section>
+<script>
+    function copyEmail() {
+        const email = "newthread_geek@outlook.com";
+        navigator.clipboard.writeText(email)
+            .then(() => alert('邮箱已复制到剪贴板！'))
+            .catch(err => alert('复制失败：' + err));
+    }
+</script>
     <!--常见问题解答-->
     <section id="questions" class="section">
     <div class="section-two"style="background-image: url('https://raw.githubusercontent.com/sanxiaojijiaben404/picture/main/background_QA.png');"
@@ -641,7 +689,7 @@
         document.querySelectorAll('.faq-question').forEach(question => {
             question.addEventListener('click', () => {
                 const faqItem = question.parentElement;
-                // 关闭其他已展开的项（可选）
+                // 关闭其他已展开的项
                 document.querySelectorAll('.faq-item.active').forEach(item => {
                     if (item !== faqItem) item.classList.remove('active');
                 });
@@ -662,13 +710,11 @@
         dropdown.classList.toggle('active');
     });
 
-    // 点击图片后关闭菜单（可选，根据需求决定是否保留）
+    // 点击图片后关闭菜单
     const dropdownImage = document.querySelector('.dropdown-image');
     if (dropdownImage) {
         dropdownImage.addEventListener('click', () => {
             dropdown.classList.remove('active');
-            // 若需要点击图片跳转，可添加跳转逻辑：
-            // window.location.href = '#introduction';
         });
     }
 
@@ -679,7 +725,7 @@
         }
     });
 
-    // 保持原有导航激活状态逻辑（不变）
+    // 保持原有导航激活状态逻辑
     window.addEventListener('scroll', () => {
         const sections = document.querySelectorAll('section');
         const navLinks = document.querySelectorAll('.nav-link');
@@ -702,6 +748,4 @@
     });
 </script>
 </body>
-
 </html>
-
